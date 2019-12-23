@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="LightTextView">
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+    </declare-styleable>
+</resources>

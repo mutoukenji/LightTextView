@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="diagnoses_button_border">#121212</color>
+    <color name="diagnoses_header_background">#121212</color>
+    <color name="diagnoses_button_text">#E6E6E6</color>
+    <color name="diagnoses_button_press_start">#E1B669</color>
+    <color name="diagnoses_button_press_center">#E9A72E</color>
+    <color name="diagnoses_button_press_end">#DD8501</color>
+
+
+    <color name="diagnoses_background">#464646</color>
+    <color name="diagnoses_button_start">#3C3C3C</color>
+    <color name="diagnoses_button_center">#282828</color>
+    <color name="diagnoses_button_end">#212121</color>
+</resources>
