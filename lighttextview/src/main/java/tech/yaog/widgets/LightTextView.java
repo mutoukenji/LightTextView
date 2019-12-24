@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -135,7 +137,8 @@ public class LightTextView extends View {
         mString = text;
         invalidateTextPaintAndMeasurements();
 
-        requestLayout();
+        calcOffset();
+        postInvalidate();
     }
 
     public void setText(int resId) {
@@ -146,7 +149,8 @@ public class LightTextView extends View {
         mTextSize = textSize;
         invalidateTextPaintAndMeasurements();
 
-        requestLayout();
+        calcOffset();
+        postInvalidate();
     }
 
     public void setTextColor(int color) {
@@ -160,13 +164,15 @@ public class LightTextView extends View {
         mGravity = gravity;
         invalidateTextPaintAndMeasurements();
 
-        requestLayout();
+        calcOffset();
+        postInvalidate();
     }
 
     public void setTextStyle(int textStyle) {
         mTextStyle = textStyle;
         invalidateTextPaintAndMeasurements();
 
-        requestLayout();
+        calcOffset();
+        postInvalidate();
     }
 }

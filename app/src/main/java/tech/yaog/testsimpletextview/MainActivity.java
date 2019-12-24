@@ -29,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
         mainContainer.addView(lightTextView);
 
         LightTextView test = findViewById(R.id.test);
+        LightTextView test2 = findViewById(R.id.test2);
         test.postDelayed(new Runnable() {
             @Override
             public void run() {
                 test.setText("T");
                 lightTextView.setText("ABCDEFG");
+                test2.setText("CCAA");
+                lightTextView.requestLayout();
             }
         }, 1000);
     }
