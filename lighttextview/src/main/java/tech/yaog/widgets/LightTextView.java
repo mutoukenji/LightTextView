@@ -6,9 +6,12 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 
 /**
@@ -19,10 +22,13 @@ public class LightTextView extends View {
     private String mString;
     private int mFontColor = Color.BLACK;
     private float mTextSize = 0;
+    private int mGravity = Gravity.LEFT;
+    private int mTextStyle = 0;
 
     private TextPaint mTextPaint;
 
-    private float mTextWidth, mTextHeight, mTextBaseline;
+    private float mTextWidth, mTextHeight, mTextBaseline, mOffsetLeft, mWidth = -1, mHeight = -1;
+    private int mWidthMeasureSpec, mHeightMeasureSpec;
 
 
     public LightTextView(Context context) {
@@ -51,6 +57,8 @@ public class LightTextView extends View {
         mString = a.getString(R.styleable.LightTextView_android_text);
         mTextSize = a.getDimension(R.styleable.LightTextView_android_textSize, mTextSize);
         mFontColor = a.getColor(R.styleable.LightTextView_android_textColor, mFontColor);
+        mGravity = a.getInt(R.styleable.LightTextView_android_gravity, mGravity);
+        mTextStyle = a.getInt(R.styleable.LightTextView_android_textStyle, mTextStyle);
 
         a.recycle();
 
@@ -66,6 +74,10 @@ public class LightTextView extends View {
     private void invalidateTextPaintAndMeasurements() {
         mTextPaint.setTextSize(mTextSize);
         mTextPaint.setColor(mFontColor);
+
+        Typeface font = Typeface.create(Typeface.DEFAULT, mTextStyle);
+        mTextPaint.setTypeface(font);
+
         if (mString == null) {
             mTextWidth = 0;
         }
@@ -78,21 +90,41 @@ public class LightTextView extends View {
         mTextHeight = fontMetrics.bottom - fontMetrics.top;
     }
 
+    private void calcOffset() {
+        if (mGravity == Gravity.CENTER) {
+            mOffsetLeft = (mWidth - mTextWidth) / 2f;
+        }
+        else if (mGravity == Gravity.RIGHT) {
+            mOffsetLeft = mWidth - mTextWidth;
+        }
+        else {
+            mOffsetLeft = 0;
+        }
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        mWidthMeasureSpec = widthMeasureSpec;
+        mHeightMeasureSpec = heightMeasureSpec;
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = resolveSize((int) (mTextWidth + 0.5f), widthMeasureSpec);
         int height = resolveSize((int) (mTextHeight + 0.5f), heightMeasureSpec);
         setMeasuredDimension(width, height);
+        mWidth = width;
+        mHeight = height;
+
+        calcOffset();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawText(mString,
-                0,
-                mTextBaseline,
-                mTextPaint);
+        if (mString != null) {
+            canvas.drawText(mString,
+                    mOffsetLeft,
+                    mTextBaseline,
+                    mTextPaint);
+        }
     }
 
     /**
@@ -103,8 +135,7 @@ public class LightTextView extends View {
         mString = text;
         invalidateTextPaintAndMeasurements();
 
-        measure(0, 0);
-        postInvalidate();
+        requestLayout();
     }
 
     public void setText(int resId) {
@@ -115,8 +146,7 @@ public class LightTextView extends View {
         mTextSize = textSize;
         invalidateTextPaintAndMeasurements();
 
-        measure(0, 0);
-        postInvalidate();
+        requestLayout();
     }
 
     public void setTextColor(int color) {
@@ -124,5 +154,19 @@ public class LightTextView extends View {
         invalidateTextPaintAndMeasurements();
 
         postInvalidate();
+    }
+
+    public void setGravity(int gravity) {
+        mGravity = gravity;
+        invalidateTextPaintAndMeasurements();
+
+        requestLayout();
+    }
+
+    public void setTextStyle(int textStyle) {
+        mTextStyle = textStyle;
+        invalidateTextPaintAndMeasurements();
+
+        requestLayout();
     }
 }

@@ -3,5 +3,7 @@
         <attr name="android:text" />
         <attr name="android:textSize" />
         <attr name="android:textColor" />
+        <attr name="android:gravity" />
+        <attr name="android:textStyle" />
     </declare-styleable>
 </resources>

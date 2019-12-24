@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import tech.yaog.widgets.LightTextView;
 
@@ -21,11 +22,19 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout mainContainer = findViewById(R.id.main_container);
 
         LightTextView lightTextView = new LightTextView(this);
-        lightTextView.setText("Test2");
+        lightTextView.setText("A");
         lightTextView.setTextColor(Color.RED);
         lightTextView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 20, this.getResources().getDisplayMetrics()));
         lightTextView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mainContainer.addView(lightTextView);
 
+        LightTextView test = findViewById(R.id.test);
+        test.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                test.setText("T");
+                lightTextView.setText("ABCDEFG");
+            }
+        }, 1000);
     }
 }

@@ -16,10 +16,20 @@
             android:orientation="vertical">
 
             <tech.yaog.widgets.LightTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Abcdefg"
+                android:gravity="center"
                 android:textColor="#FF00FF"
+                android:textSize="60sp"/>
+
+            <tech.yaog.widgets.LightTextView
+                android:id="@+id/test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="cccccc"
+                android:textStyle="bold"
+                android:gravity="right"
                 android:textSize="60sp"/>
 
         </LinearLayout>
