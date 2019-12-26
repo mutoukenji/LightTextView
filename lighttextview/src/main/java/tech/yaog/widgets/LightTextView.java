@@ -141,6 +141,10 @@ public class LightTextView extends View {
         postInvalidate();
     }
 
+    public String getText() {
+        return mString;
+    }
+
     public void setText(int resId) {
         setText(getContext().getResources().getText(resId).toString());
     }
